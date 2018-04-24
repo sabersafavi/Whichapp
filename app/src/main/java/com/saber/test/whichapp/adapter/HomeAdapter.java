@@ -1,6 +1,7 @@
 package com.saber.test.whichapp.adapter;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import com.saber.test.whichapp.R;
 import com.saber.test.whichapp.models.CountriesListData;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -35,21 +39,23 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        View itemView = null;
         if (viewType == TYPE_ITEM) {
             //Inflating recycle view item layout
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, null);
-            view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-            return new ViewHolder(view);
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
         } else if (viewType == TYPE_HEADER) {
             //Inflating header view
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_header, parent, false);
-            return new HeaderViewHolder(itemView);
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_header, parent, false);
         } else if (viewType == TYPE_FOOTER) {
             //Inflating footer view
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_footer, parent, false);
-            return new FooterViewHolder(itemView);
-        } else return null;
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_footer, parent, false);
+        }
+
+        if (itemView != null) {
+            ViewHolder viewHolder = new ViewHolder(itemView);
+            return viewHolder;
+        }
+        return null;
 
 
     }
@@ -73,7 +79,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerHolder = (FooterViewHolder) holder;
             footerHolder.footerText.setText(R.string.footer_title);
-        } else if (holder instanceof ViewHolder) {
+        } else if (holder instanceof ViewHolder && position > 0 && position <= data.size()) {
 
             ViewHolder itemViewHolder = (ViewHolder) holder;
             itemViewHolder.click(data.get(position - 1), listener);
@@ -81,6 +87,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemViewHolder.tvIso.setText(data.get(position - 1).getIso());
             itemViewHolder.tvPhone.setText(data.get(position - 1).getPhone());
         }
+
+
     }
 
 
@@ -94,33 +102,44 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void onClick(CountriesListData Item);
     }
 
-    private class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.header_text)
         TextView headerTitle;
 
         public HeaderViewHolder(View view) {
             super(view);
-            headerTitle = (TextView) view.findViewById(R.id.header_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    private class FooterViewHolder extends RecyclerView.ViewHolder {
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.footer_text)
         TextView footerText;
 
         public FooterViewHolder(View view) {
             super(view);
-            footerText = (TextView) view.findViewById(R.id.footer_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCountry, tvIso, tvPhone;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        @Nullable
+        @BindView(R.id.tvCountry)
+        TextView tvCountry;
+        @Nullable
+        @BindView(R.id.tvIso)
+        TextView tvIso;
+        @Nullable
+        @BindView(R.id.tvPhone)
+        TextView tvPhone;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvCountry = itemView.findViewById(R.id.tvCountry);
-            tvIso = itemView.findViewById(R.id.tvIso);
-            tvPhone = itemView.findViewById(R.id.tvPhone);
+            ButterKnife.bind(this, itemView);
+//            tvCountry = itemView.findViewById(R.id.tvCountry);
+//            tvIso = itemView.findViewById(R.id.tvIso);
+//            tvPhone = itemView.findViewById(R.id.tvPhone);
 
         }
 

@@ -20,11 +20,17 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class HomeActivity extends BaseActivity implements HomeView {
 
-    private RecyclerView list;
     @Inject
     public HomeInteractor homeInteractor;
+
+    @BindView(R.id.listCountries)
+    RecyclerView list;
+    @BindView(R.id.progressLoading)
     ProgressBar progressBar;
 
     @Override
@@ -41,8 +47,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     public  void renderView(){
         setContentView(R.layout.activity_home);
-        list = findViewById(R.id.listCountries);
-        progressBar = findViewById(R.id.progressLoading);
+        ButterKnife.bind(this);
     }
 
     public void init(){
