@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Whichapp</string>
+    <string name="header_title">Header Section</string>
+    <string name="footer_title">Footer Section</string>
 </resources>
