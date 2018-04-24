@@ -19,6 +19,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/*
+    *recyclerviews adapter for rendering countries
+    * view injection in view holder provided by butterknife
+    * header section and footer section added to this adapter
+ */
+
+
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
@@ -39,21 +46,19 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = null;
+        View itemView;
         if (viewType == TYPE_ITEM) {
             //Inflating recycle view item layout
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
+            return new ViewHolder(itemView);
         } else if (viewType == TYPE_HEADER) {
             //Inflating header view
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_header, parent, false);
+            return new HeaderViewHolder(itemView);
         } else if (viewType == TYPE_FOOTER) {
             //Inflating footer view
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_footer, parent, false);
-        }
-
-        if (itemView != null) {
-            ViewHolder viewHolder = new ViewHolder(itemView);
-            return viewHolder;
+            return new FooterViewHolder(itemView);
         }
         return null;
 
@@ -137,10 +142,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-//            tvCountry = itemView.findViewById(R.id.tvCountry);
-//            tvIso = itemView.findViewById(R.id.tvIso);
-//            tvPhone = itemView.findViewById(R.id.tvPhone);
-
         }
 
 

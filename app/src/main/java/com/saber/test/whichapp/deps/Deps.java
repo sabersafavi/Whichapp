@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
-
+//inject network module
 @Singleton
 @Component(modules = {NetworkModule.class,})
 public interface Deps {
