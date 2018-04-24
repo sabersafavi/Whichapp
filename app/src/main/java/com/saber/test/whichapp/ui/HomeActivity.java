@@ -17,6 +17,7 @@ import com.saber.test.whichapp.presenter.HomePresenter;
 import com.saber.test.whichapp.presenter.HomePresenterImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -70,7 +71,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     }
 
     @Override
-    public void getCountriesListSuccess(ArrayList<CountriesListData> countries) {
+    public void getCountriesListSuccess(List<CountriesListData> countries) {
 
         HomeAdapter adapter = new HomeAdapter(getApplicationContext(), countries,
                 new HomeAdapter.OnItemClickListener() {

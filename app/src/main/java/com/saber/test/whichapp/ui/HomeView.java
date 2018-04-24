@@ -4,6 +4,7 @@ package com.saber.test.whichapp.ui;
 import com.saber.test.whichapp.models.CountriesListData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface HomeView {
@@ -13,6 +14,6 @@ public interface HomeView {
 
     void onFailure(String appErrorMessage);
 
-    void getCountriesListSuccess(ArrayList<CountriesListData> countries);
+    void getCountriesListSuccess(List<CountriesListData> countries);
 
 }
