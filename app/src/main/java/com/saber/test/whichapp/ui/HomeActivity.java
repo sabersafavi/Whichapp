@@ -10,9 +10,11 @@ import android.widget.Toast;
 import com.saber.test.whichapp.BaseActivity;
 import com.saber.test.whichapp.R;
 import com.saber.test.whichapp.adapter.HomeAdapter;
+import com.saber.test.whichapp.interactor.HomeInteractor;
+import com.saber.test.whichapp.interactor.HomeInteractorImpl;
 import com.saber.test.whichapp.models.CountriesListData;
-import com.saber.test.whichapp.networking.Service;
 import com.saber.test.whichapp.presenter.HomePresenter;
+import com.saber.test.whichapp.presenter.HomePresenterImpl;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     private RecyclerView list;
     @Inject
-    public Service service;
+    public HomeInteractor homeInteractor;
     ProgressBar progressBar;
 
     @Override
@@ -33,7 +35,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
         renderView();
         init();
 
-        HomePresenter presenter = new HomePresenter(service, this);
+        HomePresenter presenter = new HomePresenterImpl(homeInteractor, this);
         presenter.getCountriesList();
     }
 

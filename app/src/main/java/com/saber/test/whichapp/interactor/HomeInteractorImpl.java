@@ -1,6 +1,8 @@
-package com.saber.test.whichapp.networking;
+package com.saber.test.whichapp.interactor;
 
 import com.saber.test.whichapp.models.CountriesListData;
+import com.saber.test.whichapp.networking.NetworkError;
+import com.saber.test.whichapp.networking.NetworkService;
 
 import java.util.ArrayList;
 
@@ -13,14 +15,15 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ennur on 6/25/16.
  */
-public class Service {
+public class HomeInteractorImpl implements HomeInteractor{
     private final NetworkService networkService;
 
-    public Service(NetworkService networkService) {
+    public HomeInteractorImpl(NetworkService networkService) {
         this.networkService = networkService;
     }
 
-    public Subscription getCityList(final GetCountriesListCallback callback) {
+    @Override
+    public Subscription getCityList(final HomeInteractor.GetCountriesListCallback callback) {
 
         return networkService.GetCountriesList()
                 .subscribeOn(Schedulers.io())
@@ -43,11 +46,5 @@ public class Service {
 
                     }
                 });
-    }
-
-    public interface GetCountriesListCallback {
-        void onSuccess(ArrayList<CountriesListData> countries);
-
-        void onError(NetworkError networkError);
     }
 }

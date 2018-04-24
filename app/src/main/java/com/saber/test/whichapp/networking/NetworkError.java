@@ -55,8 +55,7 @@ public class NetworkError extends Throwable {
     protected String getJsonStringFromResponse(final retrofit2.Response<?> response) {
         try {
             String jsonString = response.errorBody().string();
-            Response errorResponse = new Gson().fromJson(jsonString, Response.class);
-            return errorResponse.status;
+            return jsonString;
         } catch (Exception e) {
             return null;
         }

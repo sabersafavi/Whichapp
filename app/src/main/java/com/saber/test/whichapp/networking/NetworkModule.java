@@ -3,6 +3,8 @@ package com.saber.test.whichapp.networking;
 
 
 import com.saber.test.whichapp.BuildConfig;
+import com.saber.test.whichapp.interactor.HomeInteractor;
+import com.saber.test.whichapp.interactor.HomeInteractorImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +22,6 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-/**
- * Created by ennur on 6/28/16.
- */
 @Module
 public class NetworkModule {
     File cacheFile;
@@ -85,9 +84,9 @@ public class NetworkModule {
     @Provides
     @Singleton
     @SuppressWarnings("unused")
-    public Service providesService(
+    public HomeInteractor providesService(
             NetworkService networkService) {
-        return new Service(networkService);
+        return new HomeInteractorImpl(networkService);
     }
 
 }
